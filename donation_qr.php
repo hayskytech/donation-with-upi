@@ -13,3 +13,12 @@ url = 'upi://pay?pa=' + pa + '&pn=' + pn + '&cu=INR&am=' + am
 new QRCode(document.getElementById("qrcode"), url);
 
 </script>
+
+<style type="text/css">
+	#qrcode canvas{
+		display: inline !important;
+	}
+	#qrcode img{
+		display: none !important;
+	}
+</style>

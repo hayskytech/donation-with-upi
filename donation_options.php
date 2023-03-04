@@ -21,6 +21,7 @@ if(isset($_POST["submit"])){
     $data["payee_name"] = $_POST["payee_name"];
     $data["upi_link"] = $_POST["upi_link"];
     $data["amount"] = $_POST["amount"];
+    $data["upi_slug"] = $_POST["upi_slug"];
     foreach ($data as $key => $value) {
         update_option($key, $value);
     }
@@ -34,13 +35,18 @@ if(isset($_POST["submit"])){
             </td>
         </tr>
         <tr>
-            <td>Upi Link</td>
+            <td>UPI ID</td>
             <td><input type="text" name="upi_link" >
             </td>
         </tr>
         <tr>
             <td>Amount</td>
             <td><input type="text" name="amount" >
+            </td>
+        </tr>
+        <tr>
+            <td>Slug / keyword in URL</td>
+            <td><input type="text" name="upi_slug">
             </td>
         </tr>
         <tr>
@@ -53,20 +59,20 @@ if(isset($_POST["submit"])){
 $data["payee_name"] = get_option("payee_name");
 $data["upi_link"] = get_option("upi_link");
 $data["amount"] = get_option("amount");
+$data["upi_slug"] = get_option("upi_slug");
+if (!$data["upi_slug"]) {
+    $data["upi_slug"] = 'pay';
+}
 ?>
-    <script type="text/javascript">
-        jQuery('input[name=payee_name]').val('<?php echo $data["payee_name"]; ?>');
-        jQuery('input[name=upi_link]').val('<?php echo $data["upi_link"]; ?>');
-        jQuery('input[name=amount]').val('<?php echo $data["amount"]; ?>');
-    </script>
 <script type="text/javascript">
-    if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-    }
-    $(".ui.dropdown").dropdown();
+    jQuery('input[name=payee_name]').val('<?php echo $data["payee_name"]; ?>');
+    jQuery('input[name=upi_link]').val('<?php echo $data["upi_link"]; ?>');
+    jQuery('input[name=amount]').val('<?php echo $data["amount"]; ?>');
+    jQuery('input[name=upi_slug]').val('<?php echo $data["upi_slug"]; ?>');
 </script>
-<?php
-/* Powered By Haysky Code Generator: KEY
-[["text","payee_name"],["text","upi_link"],["text","amount"],["submit","Settings"]]
-*/
-?>
+
+<pre>[donation_qr] Use this shortcode to display QR Code in any page or post.</pre>
+<h2>Send these links through mobile to users. It will directly go to Phonepe or Gpay</h2>
+<pre><?php echo site_url().'?'.$data["upi_slug"]; ?></pre>
+<pre><?php echo site_url().'?'.$data["upi_slug"]; ?>=200</pre>
+<pre><?php echo site_url().'?'.$data["upi_slug"]; ?>=500</pre>
